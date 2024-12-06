@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 #define NUMBER_OF_LINE 130
 #define NUMBER_OF_CARACTER 130
@@ -10,8 +9,6 @@ struct Position {
     int y;
 };
 
-int array[1959][2];
-
 // Prototypes des fonctions
 void save_file_to_array(const char* filename, char (*buffer)[NUMBER_OF_CARACTER]);
 struct Position return_position(char c, char (*buffer)[NUMBER_OF_CARACTER]);
@@ -20,12 +17,6 @@ int go_right(char (*buffer)[NUMBER_OF_CARACTER], int x, int y, int counter);
 int go_down(char (*buffer)[NUMBER_OF_CARACTER], int x, int y, int counter);
 int go_left(char (*buffer)[NUMBER_OF_CARACTER], int x, int y, int counter);
 
-bool find_up(char (*buffer)[NUMBER_OF_CARACTER], int x, int y);
-bool find_right(char (*buffer)[NUMBER_OF_CARACTER], int x, int y);
-bool find_down(char (*buffer)[NUMBER_OF_CARACTER], int x, int y);
-bool find_left(char (*buffer)[NUMBER_OF_CARACTER], int x, int y);
-
-bool is_unique(int x, int y, int counter);
 
 int main() {
     const char* filename = "input.txt";
@@ -104,20 +95,14 @@ int go_up(char (*buffer)[NUMBER_OF_CARACTER], int x, int y, int counter) {
             printf("counter: %d\n", counter);*/
             return go_right(buffer, x + 1, y, counter);
         }
-        else{
-            if(find_right(buffer, x, y) && is_unique(x, y, counter)) {
+        else if(buffer[x][y] == '.'){
             counter++;
-            }
-
-            if(buffer[x][y] == '.'){
-                buffer[x][y] = 'U';
-                x--;
-            }
-            else {
-                x--;
-            }
+            buffer[x][y] = 'U';
+            x--;
         }
-        
+        else {
+            x--;
+        }
     }
     printf("counter returned in UP : %d\n", counter);
     return counter;
@@ -131,18 +116,13 @@ int go_right(char (*buffer)[NUMBER_OF_CARACTER], int x, int y, int counter) {
             printf("counter: %d\n", counter);*/
             return go_down(buffer, x, y - 1, counter);
         }
-        else{
-            if(find_down(buffer, x, y) && is_unique(x, y, counter)) {
+        else if(buffer[x][y] == '.'){
             counter++;
-            }
-
-            if(buffer[x][y] == '.'){
-                buffer[x][y] = 'R';
-                y++;
-            }
-            else {
-                y++;
-            }
+            buffer[x][y] = 'R';
+            y++;
+        }
+        else {
+            y++;
         }
     }
     printf("counter returned in RIGHT : %d\n", counter);
@@ -157,18 +137,13 @@ int go_down(char (*buffer)[NUMBER_OF_CARACTER], int x, int y, int counter) {
             printf("counter: %d\n", counter);*/
             return go_left(buffer, x - 1, y, counter);
         }
-        else{
-            if(find_left(buffer, x, y) && is_unique(x, y, counter)) {
+        else if(buffer[x][y] == '.'){
             counter++;
-            }
-
-            if(buffer[x][y] == '.'){
-                buffer[x][y] = 'D';
-                x++;
-            }
-            else {
-                x++;
-            }
+            buffer[x][y] = 'D';
+            x++;
+        }
+        else {
+            x++;
         }
     }
     printf("counter returned in DOWN : %d\n", counter);
@@ -183,95 +158,15 @@ int go_left(char (*buffer)[NUMBER_OF_CARACTER], int x, int y, int counter) {
             printf("counter: %d\n", counter);*/
             return go_up(buffer, x , y +1, counter);
         }
-        else{
-            if(find_up(buffer, x, y) && is_unique(x, y, counter)) {
+        else if(buffer[x][y] == '.'){
             counter++;
-            }
-
-            if(buffer[x][y] == '.'){
-                buffer[x][y] = 'L';
-                y--;
-            }
-            else {
-                y--;
-            }
-        }
-    }
-    printf("counter returned in LEFT : %d\n", counter);
-    return counter;
-}
-
-bool find_up(char (*buffer)[NUMBER_OF_CARACTER], int x, int y) {
-
-    while(x >= 0 && y >= 0 && x < NUMBER_OF_LINE && y < NUMBER_OF_CARACTER) {
-        if(buffer[x][y] == '#') {
-            return find_right(buffer, x + 1, y);
-        }
-        else if(buffer[x][y] == 'U') {
-            return true;
-        }
-        else {
-            x--;
-        }
-    }
-    return false;
-}
-
-bool find_right(char (*buffer)[NUMBER_OF_CARACTER], int x, int y) {
-
-    while(x >= 0 && y >= 0 && x < NUMBER_OF_LINE && y < NUMBER_OF_CARACTER) {
-        if(buffer[x][y] == '#') {
-            return find_down(buffer, x + 1, y);
-        }
-        else if(buffer[x][y] == 'R') {
-            return true;
-        }
-        else {
-            y++;
-        }
-    }
-    return false;
-}
-
-bool find_down(char (*buffer)[NUMBER_OF_CARACTER], int x, int y) {
-
-    while(x >= 0 && y >= 0 && x < NUMBER_OF_LINE && y < NUMBER_OF_CARACTER) {
-        if(buffer[x][y] == '#') {
-            return find_left(buffer, x + 1, y);
-        }
-        else if(buffer[x][y] == 'D') {
-            return true;
-        }
-        else {
-            x++;
-        }
-    }
-    return false;
-}
-
-bool find_left(char (*buffer)[NUMBER_OF_CARACTER], int x, int y) {
-
-    while(x >= 0 && y >= 0 && x < NUMBER_OF_LINE && y < NUMBER_OF_CARACTER) {
-        if(buffer[x][y] == '#') {
-            return find_up(buffer, x + 1, y);
-        }
-        else if(buffer[x][y] == 'L') {
-            return true;
+            buffer[x][y] = 'L';
+            y--;
         }
         else {
             y--;
         }
     }
-    return false;
-}
-
-bool is_unique(int x, int y, int counter) {
-    for(int i = 0; i < counter; i++) {
-        if(array[i][0] == x && array[i][1] == y) {
-            return false;
-        }
-    }
-    array[counter][0] = x;
-    array[counter][1] = y;
-    return true;
+    printf("counter returned in LEFT : %d\n", counter);
+    return counter;
 }
