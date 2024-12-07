@@ -25,11 +25,11 @@ Each solution can be run from its respective directory. Specific instructions fo
 
 ## Progress
 
-- [ ] Day 1
+- [ ] Day 1 (In Progress)
 - [ ] Day 2
 - [ ] Day 3
 - [ ] Day 4
 - [ ] Day 5
 - [X] Day 6
-- [ ] Day 7  (In Progress)
+- [ ] Day 7
 - [ ] Day 8-25 (Coming Soon)
