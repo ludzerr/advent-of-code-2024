@@ -15,11 +15,18 @@ def open_file(input_file):
 if __name__ == "__main__":
     input_file = pathlib.Path(__file__).parent / "input.txt"
     first_column, second_column = open_file(input_file)
-    first_column.sort()
-    second_column.sort()
-    d = 0
-    for i in range(len(first_column)):
-        d += abs(int(first_column[i]) - int(second_column[i]))
+
+    s_list = []
+    for n1 in first_column:
+        number_count = 0
+        for n2 in second_column:
+            if n1 == n2:
+                number_count += 1
+        s_list.append(int(n1) * number_count)
+    
+    d = 0    
+    for n in s_list:
+        d += n
     print("solution: ",d)
 
         
