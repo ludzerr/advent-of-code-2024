@@ -25,8 +25,8 @@ Each solution can be run from its respective directory. Specific instructions fo
 
 ## Progress
 
-- [ ] Day 1 (In Progress)
-- [ ] Day 2
+- [X] Day 1 
+- [ ] Day 2 (In Progress)
 - [ ] Day 3
 - [ ] Day 4
 - [ ] Day 5
