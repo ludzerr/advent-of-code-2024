@@ -30,5 +30,6 @@ Each solution can be run from its respective directory. Specific instructions fo
 - [ ] Day 3
 - [ ] Day 4
 - [ ] Day 5
-- [ ] Day 6 (In Progress)
-- [ ] Day 7-25 (Coming Soon)
+- [X] Day 6
+- [ ] Day 7  (In Progress)
+- [ ] Day 8-25 (Coming Soon)
